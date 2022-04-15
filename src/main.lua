@@ -1,3 +1,6 @@
+local lovebird = require "libs.lovebird"
+lovebird:update()
+
 local World = require "World"
 local Player = require "Player"
 local PondGen = require "PondGen"
@@ -18,6 +21,7 @@ function love.load()
 end
 
 function love.update(dt)
+	lovebird:update(dt)
 	g.world:tick(dt)
 end
 

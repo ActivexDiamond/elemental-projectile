@@ -172,7 +172,11 @@ function suit:grabKeyboardFocus(id)
 end
 
 function suit:hasKeyboardFocus(id)
-	return self.keyboardFocus == id
+	if id then
+		return self.keyboardFocus == id
+	else
+		return self.keyboardFocus == NONE or not self.keyboardFocus
+	end
 end
 
 function suit:keyPressedOn(id, key)
@@ -186,13 +190,14 @@ function suit:enterFrame()
 	elseif self.active == nil then
 		self.active = NONE
 	end
-
+	
 	self.hovered_last, self.hovered = self.hovered, nil
 	self:updateMouse(love.mouse.getX(), love.mouse.getY(), love.mouse.isDown(1))
 	self.key_down, self.textchar = nil, ""
 	self:grabKeyboardFocus(NONE)
 	self.hit = nil
 end
+
 
 function suit:exitFrame()
 end

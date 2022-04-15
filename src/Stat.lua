@@ -1,20 +1,20 @@
 return function(t)
 	local self = {}
 	self.TYPE =  g.type("Stat")
-	
+
 	self.max = t.max or 100
 	self.min = t.min or 0
 	self.cur = t.cur or self.max
-	
-	self.coolMax = t.coolMax or self.max * 0.25
-	self.coolMin = t.coolMin or self.max * 0.10
-	
+
+	self.coolMax = t.coolMax or self.max
+	self.coolMin = t.coolMin or 0
+
 	self.regenFreq = t.regenFreq or -1
 	self.regen = t.regen or 0 --self.max * 0.01
-	
+
 	self.lastRegen = 0
 	self.cooling = false
-	
+
 	function self:tick(dt)
 		if self.regenFreq > 0 then 									---regen per freq
 			if love.timer.getTime() - self.lastRegen >= self.regenFreq then
@@ -31,7 +31,7 @@ return function(t)
 			self.cooling = false
 		end
 	end
-	
+
 	function self:draw(g2d, line, name, col)
 		g2d.setColor(col or {1, 1, 1, 1})
 		local title = name and name .. ": " or ""
@@ -46,7 +46,7 @@ return function(t)
 		self.cur = self.cur + dif
 		return dif
 	end
-	
+
 	function self:rem(n)
 		if self.cooling then return nil end
 		if self.cur == self.min then return nil end
@@ -55,10 +55,10 @@ return function(t)
 		self.cur = self.cur - dif
 		return dif
 	end
-	
+
 	function self:cap() return self.max - self.cur end
 	function self:full() return self.cur == self.max end
 	function self:empty() return self.cur == self.min end
-	
+
 	return self
 end

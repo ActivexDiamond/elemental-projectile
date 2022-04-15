@@ -22,6 +22,7 @@ end
 -------------------------------------------------------------------------
 function Layout:setSize(w, h)				-----------------------------
 	self._w, self._h = w, h					-----------------------------
+	self:left()								-- TODO: Implement properly
 end											-----------------------------
 -------------------------------------------------------------------------
 
@@ -375,4 +376,5 @@ return setmetatable({
 	right   = function(...) return instance:right(...) end,
 	rows    = function(...) return instance:rows(...) end,
 	cols    = function(...) return instance:cols(...) end,
+	setSize	= function(...) return instance:setSize(...) end, ---------------------------------------
 }, {__call = function(_,...) return Layout.new(...) end})
