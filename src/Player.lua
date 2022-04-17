@@ -95,10 +95,17 @@ return function()
 	end
 
 	function self:onCollision(other)
+		---Pickups
 		if other.TYPE:is("Pickup") then
+			--Ponds
 			if other.ID == "pond" then
-				if self.activeFluid:add(other.amount) then g.world:remove(other) end
+				if self.activeFluidId ~= other.fluidId then return end
+				
+				if self.activeFluid:add(other.amount) then 
+					g.world:remove(other)
+				end
 			end
+		---Other
 		elseif other.TYPE:is("") then
 
 		end
